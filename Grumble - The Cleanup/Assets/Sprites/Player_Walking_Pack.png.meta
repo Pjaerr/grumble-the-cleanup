@@ -1,17 +1,17 @@
 fileFormatVersion: 2
 guid: 26fa58556a86a3a4eab385143c18467a
-timeCreated: 1489580550
+timeCreated: 1489789927
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Right_L_Foot
-    21300002: Right_Stand_1
-    21300004: Right_R_Foot
-    21300006: Left_R_Foot
-    21300008: Left_Stand_1
-    21300010: Right_Stand_2
-    21300012: Left_Stand_2
-    21300014: Left_L_Foot
+    21300000: Right1_L_Foot
+    21300002: Right2_Stand_1
+    21300004: Right3_R_Foot
+    21300006: Left4_R_Foot
+    21300008: Left3_Stand_1
+    21300010: Right4_Stand_2
+    21300012: Left1_Stand_2
+    21300014: Left2_L_Foot
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -78,7 +78,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Right_L_Foot
+      name: Right1_L_Foot
       rect:
         serializedVersion: 2
         x: 8
@@ -91,7 +91,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Right_Stand_1
+      name: Right2_Stand_1
       rect:
         serializedVersion: 2
         x: 248
@@ -104,7 +104,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Right_R_Foot
+      name: Right3_R_Foot
       rect:
         serializedVersion: 2
         x: 488
@@ -117,7 +117,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_R_Foot
+      name: Left4_R_Foot
       rect:
         serializedVersion: 2
         x: 0
@@ -130,7 +130,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Stand_1
+      name: Left3_Stand_1
       rect:
         serializedVersion: 2
         x: 240
@@ -143,7 +143,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Right_Stand_2
+      name: Right4_Stand_2
       rect:
         serializedVersion: 2
         x: 728
@@ -156,7 +156,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Stand_2
+      name: Left1_Stand_2
       rect:
         serializedVersion: 2
         x: 720
@@ -169,7 +169,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_L_Foot
+      name: Left2_L_Foot
       rect:
         serializedVersion: 2
         x: 481
