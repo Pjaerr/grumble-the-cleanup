@@ -19,6 +19,14 @@ public class EnemyMangement : MonoBehaviour
     [SerializeField]
     private int dmg = 1;           //The enemy's damage, measured in lives it takes.
 
+<<<<<<< HEAD
+=======
+	[SerializeField]
+	private static int EnemyHealth = 2;
+	private bool Death = false;
+	public GameObject DeathParticles;
+
+>>>>>>> refs/remotes/origin/Alex
     void Start()
     {
         trans = GetComponent<Transform>();
@@ -26,14 +34,26 @@ public class EnemyMangement : MonoBehaviour
     void Update()
     {
         Movement();
+<<<<<<< HEAD
+=======
+		Dead ();
+>>>>>>> refs/remotes/origin/Alex
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Player")
         {
+<<<<<<< HEAD
             playerHitSound.Play();  //Plays the playerHitSound assigned in the inspector on the Enemy object.
             PlayerController.TakeDamage(dmg);   //If this enemy hits a player. Call the Player's TakeDamage() function and pass in the damage this enemy does.
+=======
+			if (Death == false)
+			{
+            playerHitSound.Play();  //Plays the playerHitSound assigned in the inspector on the Enemy object.
+            PlayerController.TakeDamage(dmg);   //If this enemy hits a player. Call the Player's TakeDamage() function and pass in the damage this enemy does.
+			}
+>>>>>>> refs/remotes/origin/Alex
         }
     }
 
@@ -64,4 +84,32 @@ public class EnemyMangement : MonoBehaviour
             hasMoved = false;
         }
     }
+<<<<<<< HEAD
+=======
+
+
+	void Dead()
+	{
+		if (EnemyHealth <= 0) 
+		{
+			Debug.Log ("Enemy Has Been Killed");
+			Death = true;
+			if (gameObject.name == "Temp-Enemy") 
+			{
+				Instantiate (DeathParticles, transform.position, Quaternion.identity);
+				DeathParticles.transform.parent = null;
+				Destroy (gameObject);
+			}
+		}
+	}
+
+
+	public static void TakeDamage(int livesToTake)
+	{
+		EnemyHealth -= livesToTake;
+		Debug.Log("Enemy Has Lost " + livesToTake + " live[s]");
+	}
+
+
+>>>>>>> refs/remotes/origin/Alex
 }

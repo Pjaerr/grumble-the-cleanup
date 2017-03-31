@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 7c787b192306d8a428323dd81ee80837
 timeCreated: 1489400884
+=======
+guid: cc564a18918db624898e97ff73b0a77a
+timeCreated: 1489660694
+>>>>>>> refs/remotes/origin/Alex
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
