@@ -17,16 +17,18 @@ public class EnemyMangement : MonoBehaviour
     private bool hasMoved = true;   //The check to see if the enemy is at its target point. (See Movement()).
     private int r;                  //The random number generated to choose a point to move to. (See Movement()).
     [SerializeField]
-    private int dmg = 1;           //The enemy's damage, measured in lives it takes.
+    private float dmg = 1;           //The enemy's damage, measured in lives it takes.
+    [SerializeField]
+    private float playerDmg = 1; //Damage the player will inflict onto this enemy object.
 
-<<<<<<< HEAD
-=======
 	[SerializeField]
-	private static int EnemyHealth = 2;
+	private float EnemyHealth = 2;
 	private bool Death = false;
 	public GameObject DeathParticles;
 
->>>>>>> refs/remotes/origin/Alex
+    [SerializeField]
+    private AudioSource EnemyPainSound;
+
     void Start()
     {
         trans = GetComponent<Transform>();
@@ -34,26 +36,25 @@ public class EnemyMangement : MonoBehaviour
     void Update()
     {
         Movement();
-<<<<<<< HEAD
-=======
 		Dead ();
->>>>>>> refs/remotes/origin/Alex
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Player")
         {
-<<<<<<< HEAD
-            playerHitSound.Play();  //Plays the playerHitSound assigned in the inspector on the Enemy object.
-            PlayerController.TakeDamage(dmg);   //If this enemy hits a player. Call the Player's TakeDamage() function and pass in the damage this enemy does.
-=======
-			if (Death == false)
+            if (PlayerController.attackAnimationActive)
+            {
+                EnemyPainSound.Play();
+                TakeDamage(playerDmg);
+            }
+            else if (Death == false)
 			{
-            playerHitSound.Play();  //Plays the playerHitSound assigned in the inspector on the Enemy object.
-            PlayerController.TakeDamage(dmg);   //If this enemy hits a player. Call the Player's TakeDamage() function and pass in the damage this enemy does.
+                playerHitSound.Play();  //Plays the playerHitSound assigned in the inspector on the Enemy object.
+                PlayerController.TakeDamage(dmg);   //If this enemy hits a player. Call the Player's TakeDamage() function and pass in the damage this enemy does.
 			}
->>>>>>> refs/remotes/origin/Alex
+
+           
         }
     }
 
@@ -84,8 +85,6 @@ public class EnemyMangement : MonoBehaviour
             hasMoved = false;
         }
     }
-<<<<<<< HEAD
-=======
 
 
 	void Dead()
@@ -104,12 +103,11 @@ public class EnemyMangement : MonoBehaviour
 	}
 
 
-	public static void TakeDamage(int livesToTake)
+	private void TakeDamage(float livesToTake)
 	{
 		EnemyHealth -= livesToTake;
 		Debug.Log("Enemy Has Lost " + livesToTake + " live[s]");
 	}
 
 
->>>>>>> refs/remotes/origin/Alex
 }

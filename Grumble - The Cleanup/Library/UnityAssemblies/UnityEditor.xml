@@ -499,7 +499,8 @@
     </member>
     <member name="T:UnityEditor.AnimationMode">
       <summary>
-        <para>AnimationMode is used by the AnimationWindow to store properties modifed by the AnimationClip playback.</para>
+        <para>AnimationMode is used by the AnimationWindow to store properties modified
+      by the AnimationClip playback.</para>
       </summary>
     </member>
     <member name="P:UnityEditor.AnimationMode.animatedPropertyColor">
@@ -507,21 +508,35 @@
         <para>The color used to show that a property is currently being animated.</para>
       </summary>
     </member>
+    <member name="M:UnityEditor.AnimationMode.BeginSampling">
+      <summary>
+        <para>Initialise the start of the animation clip sampling.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AnimationMode.EndSampling">
+      <summary>
+        <para>Finish the sampling of the animation clip.</para>
+      </summary>
+    </member>
     <member name="M:UnityEditor.AnimationMode.InAnimationMode">
       <summary>
-        <para>Are we currently in AnimationMode.</para>
+        <para>Are we currently in AnimationMode?</para>
       </summary>
     </member>
     <member name="M:UnityEditor.AnimationMode.IsPropertyAnimated(UnityEngine.Object,System.String)">
       <summary>
         <para>Is the specified property currently in animation mode and being animated?</para>
       </summary>
-      <param name="target"></param>
-      <param name="propertyPath"></param>
+      <param name="target">The object to determine if it contained the animation.</param>
+      <param name="propertyPath">The name of the animation to search for.</param>
+      <returns>
+        <para>Whether the property search is found or not.</para>
+      </returns>
     </member>
     <member name="M:UnityEditor.AnimationMode.SampleAnimationClip(UnityEngine.GameObject,UnityEngine.AnimationClip,System.Single)">
       <summary>
-        <para>Samples an AnimationClip on the object and also records any modified properties in AnimationMode.</para>
+        <para>Samples an AnimationClip on the object and also records any modified
+        properties in AnimationMode.</para>
       </summary>
       <param name="gameObject"></param>
       <param name="clip"></param>
@@ -11000,31 +11015,45 @@ This value is the number of screen pixels per point of interface space. For inst
     </member>
     <member name="M:UnityEditor.EditorPrefs.GetFloat(System.String)">
       <summary>
-        <para>Returns the value corresponding to key in the preference file if it exists.</para>
+        <para>Returns the float value corresponding to key if it exists in the preference file.</para>
       </summary>
-      <param name="key"></param>
-      <param name="defaultValue"></param>
+      <param name="key">Name of key to read float from.</param>
+      <param name="defaultValue">Float value to return if the key is not in the storage.</param>
+      <returns>
+        <para>The float value stored in the preference file or the defaultValue id the
+        requested float does not exist.</para>
+      </returns>
     </member>
     <member name="M:UnityEditor.EditorPrefs.GetFloat(System.String,System.Single)">
       <summary>
-        <para>Returns the value corresponding to key in the preference file if it exists.</para>
+        <para>Returns the float value corresponding to key if it exists in the preference file.</para>
       </summary>
-      <param name="key"></param>
-      <param name="defaultValue"></param>
+      <param name="key">Name of key to read float from.</param>
+      <param name="defaultValue">Float value to return if the key is not in the storage.</param>
+      <returns>
+        <para>The float value stored in the preference file or the defaultValue id the
+        requested float does not exist.</para>
+      </returns>
     </member>
     <member name="M:UnityEditor.EditorPrefs.GetInt(System.String)">
       <summary>
         <para>Returns the value corresponding to key in the preference file if it exists.</para>
       </summary>
-      <param name="key"></param>
-      <param name="defaultValue"></param>
+      <param name="key">Name of key to read integer from.</param>
+      <param name="defaultValue">Integer value to return if the key is not in the storage.</param>
+      <returns>
+        <para>The value stored in the preference file.</para>
+      </returns>
     </member>
     <member name="M:UnityEditor.EditorPrefs.GetInt(System.String,System.Int32)">
       <summary>
         <para>Returns the value corresponding to key in the preference file if it exists.</para>
       </summary>
-      <param name="key"></param>
-      <param name="defaultValue"></param>
+      <param name="key">Name of key to read integer from.</param>
+      <param name="defaultValue">Integer value to return if the key is not in the storage.</param>
+      <returns>
+        <para>The value stored in the preference file.</para>
+      </returns>
     </member>
     <member name="M:UnityEditor.EditorPrefs.GetString(System.String)">
       <summary>
@@ -11042,9 +11071,12 @@ This value is the number of screen pixels per point of interface space. For inst
     </member>
     <member name="M:UnityEditor.EditorPrefs.HasKey(System.String)">
       <summary>
-        <para>Returns true if key exists in the preferences.</para>
+        <para>Returns true if key exists in the preferences file.</para>
       </summary>
-      <param name="key"></param>
+      <param name="key">Name of key to check for.</param>
+      <returns>
+        <para>The existence or not of the key.</para>
+      </returns>
     </member>
     <member name="M:UnityEditor.EditorPrefs.SetBool(System.String,System.Boolean)">
       <summary>
@@ -11055,17 +11087,17 @@ This value is the number of screen pixels per point of interface space. For inst
     </member>
     <member name="M:UnityEditor.EditorPrefs.SetFloat(System.String,System.Single)">
       <summary>
-        <para>Sets the value of the preference identified by key.</para>
+        <para>Sets the float value of the preference identified by key.</para>
       </summary>
-      <param name="key"></param>
-      <param name="value"></param>
+      <param name="key">Name of key to write float into.</param>
+      <param name="value">Float value to write into the storage.</param>
     </member>
     <member name="M:UnityEditor.EditorPrefs.SetInt(System.String,System.Int32)">
       <summary>
         <para>Sets the value of the preference identified by key as an integer.</para>
       </summary>
-      <param name="key"></param>
-      <param name="value"></param>
+      <param name="key">Name of key to write integer to.</param>
+      <param name="value">Value of the integer to write into the storage.</param>
     </member>
     <member name="M:UnityEditor.EditorPrefs.SetString(System.String,System.String)">
       <summary>
@@ -11374,6 +11406,11 @@ This value is the number of screen pixels per point of interface space. For inst
         <para>Is build script only enabled.</para>
       </summary>
     </member>
+    <member name="P:UnityEditor.EditorUserBuildSettings.compressFilesInPackage">
+      <summary>
+        <para>Compress files in package.</para>
+      </summary>
+    </member>
     <member name="P:UnityEditor.EditorUserBuildSettings.compressWithPsArc">
       <summary>
         <para>Build data compressed with PSArc.</para>
@@ -11532,6 +11569,11 @@ This value is the number of screen pixels per point of interface space. For inst
     <member name="P:UnityEditor.EditorUserBuildSettings.wsaSubtarget">
       <summary>
         <para>Sets and gets target device type for the application to run on when building to Windows Store platform.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.EditorUserBuildSettings.wsaUWPSDK">
+      <summary>
+        <para>Sets and gets target UWP SDK to build Windows Store application against.</para>
       </summary>
     </member>
     <member name="P:UnityEditor.EditorUserBuildSettings.xboxBuildSubtarget">
@@ -12778,6 +12820,21 @@ More information - https:msdn.microsoft.comen-uslibrary/dn584397(v=vs.110).aspx.
     <member name="F:UnityEditor.GizmoType.Selected">
       <summary>
         <para>Draw the gizmo if it is selected.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.GraphicsJobMode">
+      <summary>
+        <para>Enum used to specify the graphics jobs mode to use.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.GraphicsJobMode.Legacy">
+      <summary>
+        <para>Legacy graphics jobs.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.GraphicsJobMode.Native">
+      <summary>
+        <para>Native graphics jobs.</para>
       </summary>
     </member>
     <member name="T:UnityEditor.GUIDrawer">
@@ -16959,6 +17016,11 @@ If the target name is in the provided list of existing names, a unique name is g
         <para>Enable GPU skinning on capable platforms.</para>
       </summary>
     </member>
+    <member name="P:UnityEditor.PlayerSettings.graphicsJobMode">
+      <summary>
+        <para>Selects the graphics job mode to use on platforms that support both Native and Legacy graphics jobs.</para>
+      </summary>
+    </member>
     <member name="P:UnityEditor.PlayerSettings.graphicsJobs">
       <summary>
         <para>Enable graphics jobs (multi threaded rendering).</para>
@@ -16996,7 +17058,7 @@ If the target name is in the provided list of existing names, a unique name is g
     </member>
     <member name="P:UnityEditor.PlayerSettings.muteOtherAudioSources">
       <summary>
-        <para>Mute or allow audio from other applications to play in the background while the Unity application is running.</para>
+        <para>Stops or allows audio from other applications to play in the background while your Unity application is running.</para>
       </summary>
     </member>
     <member name="P:UnityEditor.PlayerSettings.productName">
@@ -17405,6 +17467,11 @@ If the target name is in the provided list of existing names, a unique name is g
         <para>Set this property with your Apple Developer Team ID. You can find this on the Apple Developer website under &lt;a href="https:developer.apple.comaccount#membership"&gt; Account &gt; Membership &lt;/a&gt; . This sets the Team ID for the generated Xcode project, allowing developers to use the Build and Run functionality. An Apple Developer Team ID must be set here for automatic signing of your app.</para>
       </summary>
     </member>
+    <member name="P:UnityEditor.PlayerSettings.iOS.appleEnableAutomaticSigning">
+      <summary>
+        <para>Set this property to true for Xcode to attempt to automatically sign your app based on your appleDeveloperTeamID.</para>
+      </summary>
+    </member>
     <member name="P:UnityEditor.PlayerSettings.iOS.applicationDisplayName">
       <summary>
         <para>iOS application display name.</para>
@@ -17433,6 +17500,11 @@ If the target name is in the provided list of existing names, a unique name is g
     <member name="P:UnityEditor.PlayerSettings.iOS.forceHardShadowsOnMetal">
       <summary>
         <para>Should hard shadows be enforced when running on (mobile) Metal.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.iOS.iOSManualProvisioningProfileID">
+      <summary>
+        <para>A provisioning profile Universally Unique Identifier (UUID) that Xcode will use to build your iOS app in Manual Signing mode.</para>
       </summary>
     </member>
     <member name="P:UnityEditor.PlayerSettings.iOS.locationUsageDescription">
@@ -17498,6 +17570,11 @@ If the target name is in the provided list of existing names, a unique name is g
     <member name="P:UnityEditor.PlayerSettings.iOS.targetOSVersionString">
       <summary>
         <para>Deployment minimal version of iOS.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PlayerSettings.iOS.tvOSManualProvisioningProfileID">
+      <summary>
+        <para>A provisioning profile Universally Unique Identifier (UUID) that Xcode will use to build your tvOS app in Manual Signing mode.</para>
       </summary>
     </member>
     <member name="P:UnityEditor.PlayerSettings.iOS.useOnDemandResources">
@@ -19625,7 +19702,7 @@ For more information - https:msdn.microsoft.comlibrarywindowsappshh779671https:m
     </member>
     <member name="M:UnityEditor.SceneManagement.EditorSceneManager.CloseScene(UnityEngine.SceneManagement.Scene,System.Boolean)">
       <summary>
-        <para>Close the Scene. If removeScene flag is true, the closed Scene will also be removed from EditorSceneManager.</para>
+        <para>Close the Scene. If removeScene flag is true, the closed Scene is also removed from EditorSceneManager.</para>
       </summary>
       <param name="scene">The Scene to be closed/removed.</param>
       <param name="removeScene">Bool flag to indicate if the Scene should be removed after closing.</param>
@@ -19669,14 +19746,14 @@ For more information - https:msdn.microsoft.comlibrarywindowsappshh779671https:m
         <para>Allows you to reorder the Scenes currently open in the Hierarchy window. Moves the source Scene so it comes after the destination Scene.</para>
       </summary>
       <param name="src">The Scene to move.</param>
-      <param name="dst">The Scene which the source Scene should come after in the hierarchy.</param>
+      <param name="dst">The Scene which should come directly before the source Scene in the hierarchy.</param>
     </member>
     <member name="M:UnityEditor.SceneManagement.EditorSceneManager.MoveSceneBefore(UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene)">
       <summary>
         <para>Allows you to reorder the Scenes currently open in the Hierarchy window. Moves the source Scene so it comes before the destination Scene.</para>
       </summary>
       <param name="src">The Scene to move.</param>
-      <param name="dst">The Scene which the source Scene should come before in the hierarchy.</param>
+      <param name="dst">The Scene which should come directly after the source Scene in the hierarchy.</param>
     </member>
     <member name="M:UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup,UnityEditor.SceneManagement.NewSceneMode)">
       <summary>
@@ -19692,7 +19769,7 @@ For more information - https:msdn.microsoft.comlibrarywindowsappshh779671https:m
       <summary>
         <para>Open a Scene in the Editor.</para>
       </summary>
-      <param name="scenePath">Path of the Scene. Should be relative to the project folder. Like: "AssetsMyScenesMyScene.unity".</param>
+      <param name="scenePath">The path of the Scene. This should be relative to the Project folder; for example, "AssetsMyScenesMyScene.unity".</param>
       <param name="mode">Allows you to select how to open the specified Scene, and whether to keep existing Scenes in the Hierarchy. See SceneManagement.OpenSceneMode for more information about the options.</param>
       <returns>
         <para>A reference to the opened Scene.</para>
@@ -19706,19 +19783,19 @@ For more information - https:msdn.microsoft.comlibrarywindowsappshh779671https:m
     </member>
     <member name="M:UnityEditor.SceneManagement.EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo">
       <summary>
-        <para>Ask the user if they want to save the the modified Scene(s).</para>
+        <para>Asks you if you want to save the modified Scene or Scenes.</para>
       </summary>
       <returns>
-        <para>Whether the user chose to save the Scene (true) or pressed cancel (false).</para>
+        <para>This returns true if you chose to save the Scene or Scenes, and returns false if you pressed Cancel.</para>
       </returns>
     </member>
     <member name="M:UnityEditor.SceneManagement.EditorSceneManager.SaveModifiedScenesIfUserWantsTo(UnityEngine.SceneManagement.Scene[])">
       <summary>
-        <para>Ask the user if they want to save any of the modfied input Scenes.</para>
+        <para>Asks whether the modfied input Scenes should be saved.</para>
       </summary>
       <param name="scenes">Scenes that should be saved if they are modified.</param>
       <returns>
-        <para>Whether the user chose to save the Scenes.</para>
+        <para>Your choice of whether to save or not save the Scenes.</para>
       </returns>
     </member>
     <member name="M:UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes">
@@ -19734,8 +19811,8 @@ For more information - https:msdn.microsoft.comlibrarywindowsappshh779671https:m
         <para>Save a Scene.</para>
       </summary>
       <param name="scene">The Scene to be saved.</param>
-      <param name="dstScenePath">The file path to save the Scene to. If the path is not empty, the current open Scene will be overwritten, or if it as not yet been saved at all, a save dialog is shown.</param>
-      <param name="saveAsCopy">If set to true, the Scene will be saved without changing the current Scene and without clearing the unsaved changes marker.</param>
+      <param name="dstScenePath">The file path to save the Scene to. If the path is not empty, the current open Scene is overwritten. If it has not yet been saved at all, a save dialog is shown.</param>
+      <param name="saveAsCopy">If set to true, the Scene is saved without changing the current Scene, and without clearing the unsaved changes marker.</param>
       <returns>
         <para>True if the save succeeded, otherwise false.</para>
       </returns>
@@ -21799,12 +21876,9 @@ Values match the ProceduralMaterial::ProceduralLoadingBehavior enum.</param>
     </member>
     <member name="M:UnityEditor.TextureImporter.GetAutomaticFormat(System.String)">
       <summary>
-        <para>Returns the TextureImporterFormat that would be automatically chosen for this platform.</para>
+        <para>TODO.</para>
       </summary>
       <param name="platform"></param>
-      <returns>
-        <para>Format chosen by the system for the provided platform, TextureImporterFormat.Automatic if the platform does not exist.</para>
-      </returns>
     </member>
     <member name="M:UnityEditor.TextureImporter.GetDefaultPlatformTextureSettings">
       <summary>
@@ -22648,11 +22722,6 @@ Valid values are in the range [0-1], with higher values generating a tighter mes
     <member name="T:UnityEditor.TizenOSVersion">
       <summary>
         <para>Tizen OS compatibility.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEditor.TizenOSVersion.Version23">
-      <summary>
-        <para></para>
       </summary>
     </member>
     <member name="F:UnityEditor.TizenOSVersion.Version24">

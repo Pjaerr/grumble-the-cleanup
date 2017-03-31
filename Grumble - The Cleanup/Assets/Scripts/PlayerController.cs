@@ -9,21 +9,6 @@ public class PlayerController : MonoBehaviour
     //Components
     private Transform trans;
 
-<<<<<<< HEAD
-    //Attributes
-    private static int lives = 5;
-    private bool isDead = false;
-
-	void Start ()
-    {
-        trans = GetComponent<Transform>();  //Grabs the players transform and assigns it locally. (Less intensive than grabbing it everytime).
-	}
-	void Update ()
-    {
-        Death();
-	}
-
-=======
 	private Rigidbody2D myRigidbody;
 	private bool facingRight;
 
@@ -38,24 +23,22 @@ public class PlayerController : MonoBehaviour
 	public LayerMask whatIsGround;
 	private bool grounded;
 	private bool Jump = false;
+    private bool isAttacking;
+    public static bool attackAnimationActive;
 
-	private bool attack;
-	private BoxCollider2D BCollider;
+
+    private BoxCollider2D BCollider;
 	private float Box_X;
 	private float Box_Y;
 
 	[SerializeField]
-	private int Dmg = 1;
-	[SerializeField]
-	private AudioSource EnemyHitSound;
-	[SerializeField]
-	private AudioSource EnemyPainSound;
-
-
+	private float dmg = 1;
+    [SerializeField]
+    private AudioSource EnemyHitSound;
 
     //Attributes
 	[SerializeField]
-   private static int lives = 5;
+   private static float health = 5;
    private bool isDead = false;
 
 	void Start ()
@@ -75,14 +58,12 @@ public class PlayerController : MonoBehaviour
 		grounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, whatIsGround);
 	}
 
-
-
 	void Update ()
     {
 		float horizontal = Input.GetAxis ("Horizontal");
 		HandleMovement(horizontal);
-		HandleInput ();
-		HandleAttacks ();
+        HandleInput();
+        HandleAttacks();
 		Flip (horizontal);
 		ResetValues ();
         Death();
@@ -93,6 +74,7 @@ public class PlayerController : MonoBehaviour
 
 		if (!this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
 		{
+            attackAnimationActive = false;
 			myRigidbody.velocity = new Vector2 (horizontal * movementSpeed, myRigidbody.velocity.y);
 		}
 
@@ -120,8 +102,9 @@ public class PlayerController : MonoBehaviour
 
 	private void HandleAttacks()
 	{
-		if (attack && !this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+		if (isAttacking && !this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
 		{
+            Debug.Log("HandleAtacks() called.");
 			myAnimator.SetTrigger ("Attack");
 			EnemyHitSound.Play ();
 			myRigidbody.velocity = Vector2.zero;
@@ -129,6 +112,7 @@ public class PlayerController : MonoBehaviour
 
 		if (this.myAnimator.GetCurrentAnimatorStateInfo (0).IsTag ("Attack")) 
 		{
+            attackAnimationActive = true;
 			Vector2 b_size = BCollider.size;
 			b_size = new Vector2 (6, Box_Y);
 			BCollider.size = b_size;
@@ -139,46 +123,35 @@ public class PlayerController : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Enemy") 
 		{
-			
-			if (this.myAnimator.GetCurrentAnimatorStateInfo (0).IsTag ("Attack")) 
-			{
-				EnemyPainSound.Play ();
-				EnemyMangement.TakeDamage (Dmg);
-			}
+
 		}
 	}
 
-	private void HandleInput()
-	{
-		if (Input.GetButtonDown ("Attacking"))
-		{
-			attack = true;
-		}
-	}
-
-
+    private void HandleInput()
+    {
+        if (Input.GetButtonDown("Attacking"))
+        {
+            Debug.Log("HandleInput() Called!");
+            isAttacking = true;
+        }
+    }
 
 	private void ResetValues()
 	{
-		attack = false;
 
-		if (this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag ("NotAttack")) 
+        isAttacking = false;
+
+        if (this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag ("NotAttack")) 
 		{
-			Vector2 b_size = BCollider.size;
+            Vector2 b_size = BCollider.size;
 			b_size = new Vector2 (Box_X, Box_Y);
 			BCollider.size = b_size;
 		}
 	}
 
-
-
-
-
-
->>>>>>> refs/remotes/origin/Alex
     void Death()
     {
-        if (lives <= 0)
+        if (health <= 0)
         {
             Debug.Log("Player has died..");
             isDead = true;
@@ -186,19 +159,10 @@ public class PlayerController : MonoBehaviour
     }
 
     /*Called when a player is hit by an enemy. Will reduce the player's lives.*/
-    public static void TakeDamage(int livesToTake)
+    public static void TakeDamage(float livesToTake)
     {
-<<<<<<< HEAD
-        lives -= livesToTake;   //livesToTake is equal to the damage passed in when this function is called. (via the EnemyManagement.cs script.)
-        Debug.Log("Player has lost " + livesToTake + " live[s]");
-=======
-		
-		if (!GameObject.Find("Player").GetComponent<PlayerController>().attack) 
-		{
-			lives -= livesToTake;   //livesToTake is equal to the damage passed in when this function is called. (via the EnemyManagement.cs script.)
-			Debug.Log ("Player has lost " + livesToTake + " live[s]");
-		}
->>>>>>> refs/remotes/origin/Alex
+	    health -= livesToTake;   //livesToTake is equal to the damage passed in when this function is called. (via the EnemyManagement.cs script.)
+		Debug.Log ("Player has lost " + livesToTake + " live[s]");
     }
 
 }
