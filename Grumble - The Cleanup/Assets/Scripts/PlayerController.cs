@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     //Attributes
 	[SerializeField]
-   private static float health = 5;
+   public static float health = 5;
    private bool isDead = false;
 
 	void Start ()

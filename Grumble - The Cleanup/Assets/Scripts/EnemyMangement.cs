@@ -10,6 +10,9 @@ public class EnemyMangement : MonoBehaviour
     private Transform trans;            //The enemy's transform.
     [SerializeField]
     private AudioSource playerHitSound; //The audio source containing the player hit sound. Assigned in inspector.
+    [SerializeField]
+    private AudioSource EnemyPainSound;
+    public GameObject DeathParticles;   //Object used to spawn particles on death.
 
     //Attributes
     [SerializeField]
@@ -17,41 +20,37 @@ public class EnemyMangement : MonoBehaviour
     private bool hasMoved = true;   //The check to see if the enemy is at its target point. (See Movement()).
     private int r;                  //The random number generated to choose a point to move to. (See Movement()).
     [SerializeField]
-    private float dmg = 1;           //The enemy's damage, measured in lives it takes.
+    private float enemyDmg = 1;     //The enemy's damage.
     [SerializeField]
-    private float playerDmg = 1; //Damage the player will inflict onto this enemy object.
-
+    private float playerDmg = 1;    //Damage the player will inflict onto this enemy object.
 	[SerializeField]
-	private float EnemyHealth = 2;
-	private bool Death = false;
-	public GameObject DeathParticles;
-
-    [SerializeField]
-    private AudioSource EnemyPainSound;
+	private float enemyHealth = 2;  //The health the enemy has.
+	private bool isDead = false;    //True if the enemy has run out of health.
 
     void Start()
     {
-        trans = GetComponent<Transform>();
+        trans = GetComponent<Transform>();  //Assigning the player's transform once, instead of having to get component every time.
     }
     void Update()
     {
         Movement();
-		Dead ();
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Player")
         {
-            if (PlayerController.attackAnimationActive)
+            CheckDeath();
+
+            if (PlayerController.attackAnimationActive) //If the player is currently attacking.
             {
-                EnemyPainSound.Play();
-                TakeDamage(playerDmg);
+                EnemyPainSound.Play();  //Play enemy getting hit sound.
+                TakeDamage(playerDmg);  //Pass the amount of dmg the player does to this object to its TakeDamage function.
             }
-            else if (Death == false)
+            else if (isDead == false)
 			{
                 playerHitSound.Play();  //Plays the playerHitSound assigned in the inspector on the Enemy object.
-                PlayerController.TakeDamage(dmg);   //If this enemy hits a player. Call the Player's TakeDamage() function and pass in the damage this enemy does.
+                PlayerController.TakeDamage(enemyDmg);   //If this enemy hits a player. Call the Player's TakeDamage() function and pass in the damage this enemy does.
 			}
 
            
@@ -87,15 +86,15 @@ public class EnemyMangement : MonoBehaviour
     }
 
 
-	void Dead()
+	void CheckDeath()
 	{
-		if (EnemyHealth <= 0) 
+		if (enemyHealth <= 0) 
 		{
 			Debug.Log ("Enemy Has Been Killed");
-			Death = true;
-			if (gameObject.name == "Temp-Enemy") 
+			isDead = true;
+			if (gameObject.tag == "Enemy") 
 			{
-				Instantiate (DeathParticles, transform.position, Quaternion.identity);
+				Instantiate (DeathParticles, trans.position, Quaternion.identity);
 				DeathParticles.transform.parent = null;
 				Destroy (gameObject);
 			}
@@ -105,7 +104,7 @@ public class EnemyMangement : MonoBehaviour
 
 	private void TakeDamage(float livesToTake)
 	{
-		EnemyHealth -= livesToTake;
+		enemyHealth -= livesToTake;
 		Debug.Log("Enemy Has Lost " + livesToTake + " live[s]");
 	}
 
