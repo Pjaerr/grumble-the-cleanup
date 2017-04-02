@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     private float timerValue = 0;
     private float grumbleCounterValue = 0;
 
+    [SerializeField]
+    private float increaseAmountForGrumble = 25;
 
     void Start()
     {
@@ -98,4 +100,17 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
     }
+
+
+    // This will be called to increase the grumble counter value.
+
+    public float increaseScore()
+    {
+
+        grumbleCounterValue = grumbleCounterValue + increaseAmountForGrumble;
+
+        return 0;
+
+    }
+
 }
