@@ -9,53 +9,52 @@ public class PlayerController : MonoBehaviour
     //Components
     private Transform trans;
 
-	private Rigidbody2D myRigidbody;
-	private bool facingRight;
+	private Rigidbody2D myRigidbody;				//Creates a reference to the rigidbody
+	private bool facingRight;						//Whether the player is facing right or not
 
-	private Animator myAnimator; //animation
-
-	[SerializeField]
-	private float movementSpeed;//movement
-	public float jumpHeight;	//jump height
-
-	public Transform groundCheck;
-	public float groundCheckRadius;	//ground check
-	public LayerMask whatIsGround;
-	private bool grounded;
-	private bool Jump = false;
-    private bool isAttacking;
-    public static bool attackAnimationActive;
-
-
-    private BoxCollider2D BCollider;
-	private float Box_X;
-	private float Box_Y;
+	private Animator myAnimator; 					//Creates a reference to the annimator 
 
 	[SerializeField]
-	private float dmg = 1;
+	private float movementSpeed;					//The speed at which the player will move
+	public float jumpHeight;						//The height the player will jump
+
+	public Transform groundCheck;					//Checks if player is on the ground
+	public float groundCheckRadius;					//Area below the player to check for ground
+	public LayerMask whatIsGround;					//Defining what is ground
+	private bool grounded;							//Is the player on the ground
+	private bool Jump = false;						//Whether player can jump or not
+    private bool isAttacking;						//Whether the player is attacking or not
+    public static bool attackAnimationActive;		//Whether or not the attack animation is active 
+
+
+    private BoxCollider2D BCollider;				//Creates a reference to the Box collider
+	private float Box_X;							//The size of the X (BoxCollider)
+	private float Box_Y;							//The size of the Y (BoxCollider)
+
+	[SerializeField]
+	private float dmg = 1;							//The damage that the player does
     [SerializeField]
-    private AudioSource EnemyHitSound;
+    private AudioSource EnemyHitSound;				//The sound of the player Swinging Weapon
 
     //Attributes
 	[SerializeField]
-   public static float health = 5;
-   private bool isDead = false;
+   public static float health = 5;					//The health of the player 
+   private bool isDead = false;						//Whether or not the player is dead
 
 	void Start ()
     {
-       trans = GetComponent<Transform>();  //Grabs the players transform and assigns it locally. (Less intensive than grabbing it everytime).
-
-		myRigidbody = GetComponent<Rigidbody2D> ();
-		myAnimator = GetComponent<Animator> ();
-		BCollider = GetComponent<BoxCollider2D> ();
-		Box_X = BCollider.size.x;
-		Box_Y = BCollider.size.y;
+      	trans = GetComponent<Transform>();  			//Grabs the players transform and assigns it locally. (Less intensive than grabbing it everytime).
+		myRigidbody = GetComponent<Rigidbody2D> ();		//Grabs the rigidbody componenty from the player, (Same Reason as above)
+		myAnimator = GetComponent<Animator> ();			//Grabs the Animator componenty from the player, (Same Reason as above)
+		BCollider = GetComponent<BoxCollider2D> ();		//Grabs the BoxCollider componenty from the player, (Same Reason as above)
+		Box_X = BCollider.size.x;						//Assigining the x size to the float (easier to reference)
+		Box_Y = BCollider.size.y;						//Assigining the y size to the float (easier to reference)
 	}
 		
 
 	void FixedUpdate()
 	{
-		grounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, whatIsGround);
+		grounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, whatIsGround);		//Less intensive than checking every frame, will check if the player is on the GROUND tag.
 	}
 
 	void Update ()
@@ -72,78 +71,68 @@ public class PlayerController : MonoBehaviour
 	private void HandleMovement(float horizontal)
 	{
 
-		if (!this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+		if (!this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))							//if the player is not in the Attack Animation Phase
 		{
-            attackAnimationActive = false;
-			myRigidbody.velocity = new Vector2 (horizontal * movementSpeed, myRigidbody.velocity.y);
+            attackAnimationActive = false;																//Change the Active Animation bool to false
+			myRigidbody.velocity = new Vector2 (horizontal * movementSpeed, myRigidbody.velocity.y);	//Stops the player from Sliding
 		}
 
-		myAnimator.SetFloat ("Walking", Mathf.Abs(horizontal));
+		myAnimator.SetFloat ("Walking", Mathf.Abs(horizontal));											//sets the animation to walking
 
 
-		if (Input.GetButton ("Jump") && grounded)
+		if (Input.GetButton ("Jump") && grounded)														//If the Jump button has been pressed and player is on the ground
 		{
-			GetComponent<Rigidbody2D> ().AddForce (new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+			GetComponent<Rigidbody2D> ().AddForce (new Vector2(0, jumpHeight), ForceMode2D.Impulse);	//Will add a force decided in unity to the player moving them up
 		}
 	}
 
-	private void Flip(float horizontal)
+	private void Flip(float horizontal)										
 	{
-		if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight) 
+		if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight) 							//if the player's Horizontal (movement) value is less than 0 will flip the player in that direction
 		{
-			facingRight = !facingRight;
+			facingRight = !facingRight;																	
 
 			Vector3 theScale = transform.localScale;
-			theScale.x *= -1;
+			theScale.x *= -1;																			//if its currently on the positive will change to negative, and vise versa
 
-			transform.localScale = theScale;
+			transform.localScale = theScale;															//will set the value on the Player
 		}
 	}
 
 	private void HandleAttacks()
 	{
-		if (isAttacking && !this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+		if (isAttacking && !this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))				//if the player is in attacking stage but animation not yet triggered
 		{
-            Debug.Log("HandleAtacks() called.");
-			myAnimator.SetTrigger ("Attack");
-			EnemyHitSound.Play ();
-			myRigidbody.velocity = Vector2.zero;
+			myAnimator.SetTrigger ("Attack");															//turns the animation on
+			EnemyHitSound.Play ();																		//plays the attacking sound
+			myRigidbody.velocity = Vector2.zero;														//stops the player from moving
 		}
 
-		if (this.myAnimator.GetCurrentAnimatorStateInfo (0).IsTag ("Attack")) 
+		if (this.myAnimator.GetCurrentAnimatorStateInfo (0).IsTag ("Attack")) 							//once player is in the attacking Animation
 		{
-            attackAnimationActive = true;
-			Vector2 b_size = BCollider.size;
+            attackAnimationActive = true;																//turn activeanimation to true
+			Vector2 b_size = BCollider.size;															//increase the size of the box collider
 			b_size = new Vector2 (6, Box_Y);
 			BCollider.size = b_size;
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D col)
-	{
-		if (col.gameObject.tag == "Enemy") 
-		{
-
-		}
-	}
-
-    private void HandleInput()
+    private void HandleInput()																			
     {
-        if (Input.GetButtonDown("Attacking"))
+        if (Input.GetButtonDown("Attacking"))															//if the Attack Button has been pressed
         {
-            Debug.Log("HandleInput() Called!");
-            isAttacking = true;
+            isAttacking = true;																			//sets the attacking stage to true
         }
     }
 
 	private void ResetValues()
 	{
 
-        isAttacking = false;
+        isAttacking = false;																			//resets attacking stage to false
 
-        if (this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag ("NotAttack")) 
+        if (this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag ("NotAttack")) 						//if the player is no longer in attacking stage
 		{
-            Vector2 b_size = BCollider.size;
+            Vector2 b_size = BCollider.size;															//reset the box collider size
 			b_size = new Vector2 (Box_X, Box_Y);
 			BCollider.size = b_size;
 		}
@@ -151,10 +140,10 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
-        if (health <= 0)
+        if (health <= 0)																				//if player health goes below 0
         {
             Debug.Log("Player has died..");
-            isDead = true;
+            isDead = true;																				//set is dead as true
         }
     }
 

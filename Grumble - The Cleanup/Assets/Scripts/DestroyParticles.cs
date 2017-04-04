@@ -8,7 +8,7 @@ using System.Collections;
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 
-public class Destroy : MonoBehaviour 
+public class DestroyParticles : MonoBehaviour 
 {
 	public float lifetime =0;																	//sets the lifetime of particles, set in unity
 

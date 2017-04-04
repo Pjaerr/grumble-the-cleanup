@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: cc564a18918db624898e97ff73b0a77a
-timeCreated: 1489660694
+timeCreated: 1491298861
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playerHitSound: {instanceID: 0}
+  - EnemyPainSound: {instanceID: 0}
+  - DeathParticles: {fileID: 1565285427112502, guid: 7be19ef62af244546bf016c2257dc832,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
