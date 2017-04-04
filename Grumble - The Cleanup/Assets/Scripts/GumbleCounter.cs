@@ -39,9 +39,9 @@ public class GumbleCounter : MonoBehaviour
     }
 
     //Function to update the score and display it
-    public void UpdateScoreValue(int scoreUpdate)
+    public void UpdateScoreValue(int ScoreUpdate)
     {
-        ScoreValue += scoreUpdate;
+        ScoreValue += ScoreUpdate;
 
         UpdateScoreText();
     }
