@@ -9,7 +9,7 @@ public class GumbleCounter : MonoBehaviour
 {
 
     public int score;
-    public Text ScoreText;
+    public GUIText ScoreText;
     [SerializeField]
     private int ScoreValue;
     [SerializeField]
@@ -27,7 +27,7 @@ public class GumbleCounter : MonoBehaviour
 
     }
 
-    //Function to update the score and display it on the UI
+    //Function to update the score and display it
     public void UpdateScoreValue(int scoreUpdate)
     {
         ScoreValue += scoreUpdate;
