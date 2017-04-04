@@ -26,7 +26,7 @@ public class EnemyMangement : MonoBehaviour
 	[SerializeField]
 	private float enemyHealth = 2;  //The health the enemy has.
 	private bool isDead = false;    //True if the enemy has run out of health.
-    public int ScoreUpdate;          //
+
 
     void Start()
     {
@@ -93,12 +93,12 @@ public class EnemyMangement : MonoBehaviour
 		{
 			Debug.Log ("Enemy Has Been Killed");
 			isDead = true;
-			if (gameObject.tag == "Enemy") 
+            GameManager.instance.UpdateGrumbleCounter(10);
+            if (gameObject.tag == "Enemy") 
 			{
 				Instantiate (DeathParticles, trans.position, Quaternion.identity);
 				DeathParticles.transform.parent = null;
-                ScoreUpdate += 10;
-                Destroy (gameObject);
+                Destroy(gameObject);
 			}
 		}
 	}
