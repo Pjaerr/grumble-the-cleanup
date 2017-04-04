@@ -5,11 +5,22 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 
+//Accesses the ScoreUpdate int from Enemy Management.cs
+public class Accessor : MonoBehaviour
+{
+
+    void Start()
+    {
+        GameObject Enemies = GameObject.Find("Enemies");
+        EnemyMangement enemyManagement = Enemies.GetComponent<EnemyMangement>();
+        enemyManagement.ScoreUpdate =+ 10;
+    }
+}
+
 public class GumbleCounter : MonoBehaviour
 {
 
-    public int score;
-    public GUIText ScoreText;
+    public Text ScoreText;
     [SerializeField]
     private int ScoreValue;
     [SerializeField]
@@ -24,7 +35,7 @@ public class GumbleCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     //Function to update the score and display it
@@ -47,5 +58,4 @@ public class GumbleCounter : MonoBehaviour
         ScoreValue = 0;
         UpdateScoreText();
     }
-
 }
