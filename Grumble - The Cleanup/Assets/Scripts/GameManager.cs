@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     Text grumbleCounter;
 
     private float playerHealthValue = 0;
-    private float timerValue = 0;
+    private int timerValue = 0;
     private float grumbleCounterValue = 0;
 
     public static GameManager instance;
@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        timerValue += 1;
+
         if (loadHud)
         {
             LoadHUD();
