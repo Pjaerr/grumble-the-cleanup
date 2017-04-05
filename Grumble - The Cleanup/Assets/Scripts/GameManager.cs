@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
         if (type == "Win")
         {
             LevelEndWinUI.SetActive(true);
+             
         }
         else if (type == "Lose")
         {
@@ -125,4 +126,6 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
     }
+
+
 }
