@@ -14,6 +14,10 @@ public class EnemyMangement : MonoBehaviour
     private AudioSource EnemyPainSound;
     public GameObject DeathParticles;   //Object used to spawn particles on death.
 
+    [SerializeField]
+    private GameObject gameManager;     // These will be used to access some functions within the GameManager class.
+    private GameManager newScore;
+
     //Attributes
     [SerializeField]
     private float movementSpeed;    //The speed at which the enemy will move in Unity Units. Assigned in the inspector.
@@ -31,6 +35,9 @@ public class EnemyMangement : MonoBehaviour
     void Start()
     {
         trans = GetComponent<Transform>();  //Assigning the player's transform once, instead of having to get component every time.
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");              // Allows access to the gameManager's functions.
+        newScore = gameManager.GetComponent<GameManager>();
     }
     void Update()
     {
@@ -98,6 +105,11 @@ public class EnemyMangement : MonoBehaviour
 			{
 				Instantiate (DeathParticles, trans.position, Quaternion.identity);
 				DeathParticles.transform.parent = null;
+
+                newScore.increaseScore();                       // After an enemy has died the player's score increases.
+
+				Destroy (gameObject);
+
                 Destroy(gameObject);
 			}
 		}
