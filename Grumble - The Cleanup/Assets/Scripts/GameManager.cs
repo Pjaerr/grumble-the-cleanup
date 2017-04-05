@@ -29,11 +29,32 @@ public class GameManager : MonoBehaviour
     Text grumbleCounter;
 
     private float playerHealthValue = 0;
-    private float timerValue = 0;
+    private int timerValue = 0;
     private float grumbleCounterValue = 0;
 
+<<<<<<< HEAD
     [SerializeField]
     private float increaseAmountForGrumble = 25;
+=======
+    public static GameManager instance;
+
+    void Singleton()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Awake()
+    {
+        Singleton();
+    }
+>>>>>>> e960b1ffb1c2e1ddb3a6642939d8abb0f573dec4
 
     void Start()
     {
@@ -45,6 +66,8 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        
+
         if (loadHud)
         {
             LoadHUD();
@@ -62,11 +85,18 @@ public class GameManager : MonoBehaviour
         grumbleCounter.text = "Grumble Counter: " + grumbleCounterValue.ToString();
 
     }
+    
+    public void UpdateGrumbleCounter(int amount)
+    {
+        grumbleCounterValue += amount;
+    }
+
     void UpdateHUDValues()
     {
         //TO THOMAS KIRKLAND********
         /*Set the relevant values (Grumble counter and Timer) here to what you need them to be and they should update on the HUD
          automatically as long as the values themselves are being changed here.*/
+        timerValue += 1;
 
 
         playerHealthValue = PlayerController.health;

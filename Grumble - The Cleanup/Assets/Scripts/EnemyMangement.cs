@@ -31,6 +31,7 @@ public class EnemyMangement : MonoBehaviour
 	private float enemyHealth = 2;  //The health the enemy has.
 	private bool isDead = false;    //True if the enemy has run out of health.
 
+
     void Start()
     {
         trans = GetComponent<Transform>();  //Assigning the player's transform once, instead of having to get component every time.
@@ -99,14 +100,19 @@ public class EnemyMangement : MonoBehaviour
 		{
 			Debug.Log ("Enemy Has Been Killed");
 			isDead = true;
-			if (gameObject.tag == "Enemy") 
+            GameManager.instance.UpdateGrumbleCounter(10);
+            if (gameObject.tag == "Enemy") 
 			{
 				Instantiate (DeathParticles, trans.position, Quaternion.identity);
 				DeathParticles.transform.parent = null;
+<<<<<<< HEAD
 
                 newScore.increaseScore();                       // After an enemy has died the player's score increases.
 
 				Destroy (gameObject);
+=======
+                Destroy(gameObject);
+>>>>>>> e960b1ffb1c2e1ddb3a6642939d8abb0f573dec4
 			}
 		}
 	}

@@ -8,11 +8,10 @@ using System;
 public class GumbleCounter : MonoBehaviour
 {
 
-    public int score;
     public Text ScoreText;
+    private int ScoreValue = 0;
     [SerializeField]
-    private int ScoreValue;
-    [SerializeField]
+
 
     // Use this for initialization
     void Start()
@@ -24,13 +23,13 @@ public class GumbleCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        UpdateScoreText();
     }
 
-    //Function to update the score and display it on the UI
-    public void UpdateScoreValue(int scoreUpdate)
+    //Function to update the score and display it
+    public void UpdateScoreValue(int ScoreUpdate)
     {
-        ScoreValue += scoreUpdate;
+        ScoreValue += ScoreUpdate;
 
         UpdateScoreText();
     }
@@ -47,5 +46,4 @@ public class GumbleCounter : MonoBehaviour
         ScoreValue = 0;
         UpdateScoreText();
     }
-
 }
