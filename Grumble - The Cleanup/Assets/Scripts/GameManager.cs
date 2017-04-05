@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        
+        timerValue += 1;
 
         if (loadHud)
         {
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         //TO THOMAS KIRKLAND********
         /*Set the relevant values (Grumble counter and Timer) here to what you need them to be and they should update on the HUD
          automatically as long as the values themselves are being changed here.*/
-        timerValue += 1;
+
 
 
         playerHealthValue = PlayerController.health;
