@@ -9,23 +9,20 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool loadHud = false;
 
+    //Components
+
+    //Audio
+    [SerializeField] AudioSource backgroundMusic;
+
     //UI
-    [SerializeField]
-    GameObject mainMenuUI;
-    [SerializeField]
-    GameObject LevelEndWinUI;
-    [SerializeField]
-    GameObject LevelEndLoseUI;
-    [SerializeField]
-    GameObject HUD;
-    [SerializeField]
-    Text playerHealth;
-    [SerializeField]
-    Text timer;
-    [SerializeField]
-    Text grumbleCounter;
-    [SerializeField]
-    GameObject pauseMenu;
+    [SerializeField] GameObject mainMenuUI;
+    [SerializeField] GameObject LevelEndWinUI;
+    [SerializeField] GameObject LevelEndLoseUI;
+    [SerializeField] GameObject HUD;
+    [SerializeField] Text playerHealth;
+    [SerializeField] Text timer;
+    [SerializeField] Text grumbleCounter;
+    [SerializeField] GameObject pauseMenu;
 
     //UI Values
     private float playerHealthValue = 0;
@@ -61,6 +58,8 @@ public class GameManager : MonoBehaviour
             HUD.SetActive(true);
             LoadHUD();
         }
+
+        backgroundMusic.Play();
 
     }
     void Update()
