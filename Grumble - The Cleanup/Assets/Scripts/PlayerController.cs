@@ -143,8 +143,7 @@ public class PlayerController : MonoBehaviour
         if (health <= 0)																				//if player health goes below 0
         {
             Debug.Log("Player has died..");
-            isDead = true;			//set is dead as true
-            GameManager.instance.TriggerLevelEnd("Lose");
+            isDead = true;																				//set is dead as true
         }
     }
 
@@ -153,15 +152,6 @@ public class PlayerController : MonoBehaviour
     {
 	    health -= livesToTake;   //livesToTake is equal to the damage passed in when this function is called. (via the EnemyManagement.cs script.)
 		Debug.Log ("Player has lost " + livesToTake + " live[s]");
-    }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "LevelEnd")
-        {
-            Debug.Log("Hit Level End");
-            GameManager.instance.TriggerLevelEnd("Win");
-        }
     }
 
 }

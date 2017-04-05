@@ -108,7 +108,6 @@ public class GameManager : MonoBehaviour
         if (type == "Win")
         {
             LevelEndWinUI.SetActive(true);
-             
         }
         else if (type == "Lose")
         {
@@ -129,6 +128,7 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
     }
+<<<<<<< HEAD
 
 
 <<<<<<< HEAD
@@ -145,4 +145,6 @@ public class GameManager : MonoBehaviour
     }
 
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 5570e07... End Level conditions added
 }
