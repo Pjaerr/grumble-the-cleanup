@@ -105,14 +105,12 @@ public class EnemyMangement : MonoBehaviour
 			{
 				Instantiate (DeathParticles, trans.position, Quaternion.identity);
 				DeathParticles.transform.parent = null;
-<<<<<<< HEAD
 
                 newScore.increaseScore();                       // After an enemy has died the player's score increases.
 
 				Destroy (gameObject);
-=======
+
                 Destroy(gameObject);
->>>>>>> e960b1ffb1c2e1ddb3a6642939d8abb0f573dec4
 			}
 		}
 	}

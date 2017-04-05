@@ -32,10 +32,9 @@ public class GameManager : MonoBehaviour
     private int timerValue = 0;
     private float grumbleCounterValue = 0;
 
-<<<<<<< HEAD
     [SerializeField]
     private float increaseAmountForGrumble = 25;
-=======
+
     public static GameManager instance;
 
     void Singleton()
@@ -54,7 +53,6 @@ public class GameManager : MonoBehaviour
     {
         Singleton();
     }
->>>>>>> e960b1ffb1c2e1ddb3a6642939d8abb0f573dec4
 
     void Start()
     {
