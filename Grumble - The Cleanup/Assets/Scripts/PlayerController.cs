@@ -144,6 +144,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player has died..");
             isDead = true;																				//set is dead as true
+            GameManager.instance.TriggerLevelEnd("Lose");
         }
     }
 
@@ -154,4 +155,9 @@ public class PlayerController : MonoBehaviour
 		Debug.Log ("Player has lost " + livesToTake + " live[s]");
     }
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("Player has reached the end");
+        GameManager.instance.TriggerLevelEnd("Win");
+    }
 }
