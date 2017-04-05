@@ -7,43 +7,34 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Components
-    private Transform trans;
-
 	private Rigidbody2D myRigidbody;				//Creates a reference to the rigidbody
-	private bool facingRight;						//Whether the player is facing right or not
+    private Animator myAnimator;                    //Creates a reference to the annimator 
+    public LayerMask whatIsGround;					//Defining what is ground
+    public Transform groundCheck;					//Checks if player is on the ground
+    private BoxCollider2D BCollider;                //Creates a reference to the Box collider
+    private float Box_X;                            //The size of the X (BoxCollider)
+    private float Box_Y;                            //The size of the Y (BoxCollider)
+    [SerializeField]
+    private AudioSource EnemyHitSound;				//The sound of the player Swinging Weapon
 
-	private Animator myAnimator; 					//Creates a reference to the annimator 
-
+    //Attributes
+    private bool facingRight;						//Whether the player is facing right or not
 	[SerializeField]
 	private float movementSpeed;					//The speed at which the player will move
 	public float jumpHeight;						//The height the player will jump
-
-	public Transform groundCheck;					//Checks if player is on the ground
 	public float groundCheckRadius;					//Area below the player to check for ground
-	public LayerMask whatIsGround;					//Defining what is ground
 	private bool grounded;							//Is the player on the ground
 	private bool Jump = false;						//Whether player can jump or not
     private bool isAttacking;						//Whether the player is attacking or not
     public static bool attackAnimationActive;		//Whether or not the attack animation is active 
 
-
-    private BoxCollider2D BCollider;				//Creates a reference to the Box collider
-	private float Box_X;							//The size of the X (BoxCollider)
-	private float Box_Y;							//The size of the Y (BoxCollider)
-
 	[SerializeField]
-	private float dmg = 1;							//The damage that the player does
-    [SerializeField]
-    private AudioSource EnemyHitSound;				//The sound of the player Swinging Weapon
-
-    //Attributes
-	[SerializeField]
-   public static float health = 5;					//The health of the player 
-   private bool isDead = false;						//Whether or not the player is dead
+    public static float health = 5;					//The health of the player 
+    private bool isDead = false;                     //Whether or not the player is dead
+    private bool canAttack = true;
 
 	void Start ()
     {
-      	trans = GetComponent<Transform>();  			//Grabs the players transform and assigns it locally. (Less intensive than grabbing it everytime).
 		myRigidbody = GetComponent<Rigidbody2D> ();		//Grabs the rigidbody componenty from the player, (Same Reason as above)
 		myAnimator = GetComponent<Animator> ();			//Grabs the Animator componenty from the player, (Same Reason as above)
 		BCollider = GetComponent<BoxCollider2D> ();		//Grabs the BoxCollider componenty from the player, (Same Reason as above)
@@ -60,11 +51,15 @@ public class PlayerController : MonoBehaviour
 	void Update ()
     {
 		float horizontal = Input.GetAxis ("Horizontal");
-		HandleMovement(horizontal);
-        HandleInput();
-        HandleAttacks();
-		Flip (horizontal);
-		ResetValues ();
+        if (canAttack)
+        {
+            HandleMovement(horizontal);
+            HandleInput();
+            HandleAttacks();
+            Flip(horizontal);
+            ResetValues();
+        }
+
         Death();
 	}
 
@@ -127,7 +122,6 @@ public class PlayerController : MonoBehaviour
 
 	private void ResetValues()
 	{
-
         isAttacking = false;																			//resets attacking stage to false
 
         if (this.myAnimator.GetCurrentAnimatorStateInfo(0).IsTag ("NotAttack")) 						//if the player is no longer in attacking stage
@@ -140,11 +134,14 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
-        if (health <= 0)																				//if player health goes below 0
+        if (isDead == false)
         {
-            Debug.Log("Player has died..");
-            isDead = true;																				//set is dead as true
-            GameManager.instance.TriggerLevelEnd("Lose");
+            if (health <= 0)                                                                                //if player health goes below 0
+            {
+                isDead = true;                                                                              //set is dead as true
+                GameManager.instance.TriggerLevelEnd("Lose");
+                canAttack = false;
+            }
         }
     }
 
@@ -157,7 +154,25 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Player has reached the end");
-        GameManager.instance.TriggerLevelEnd("Win");
+        if (col.gameObject.tag == "LevelEnd")
+        {
+            Debug.Log("Player has reached the end");
+            GameManager.instance.TriggerLevelEnd("Win");
+        }
+  
+        if (col.gameObject.tag == "Collectable")
+        {
+            collectItems();
+        } 
+
+        if (col.gameObject.tag == "LevelVoid")
+        {
+            health = 0;
+        }
+    }
+
+    void collectItems()
+    {
+        GameManager.instance.UpdateGrumbleCounter(3);
     }
 }

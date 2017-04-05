@@ -109,6 +109,4 @@ public class EnemyMangement : MonoBehaviour
 		enemyHealth -= livesToTake;
 		Debug.Log("Enemy Has Lost " + livesToTake + " live[s]");
 	}
-
-
 }

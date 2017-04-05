@@ -9,29 +9,31 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool loadHud = false;
 
+    //UI
     [SerializeField]
     GameObject mainMenuUI;
-
     [SerializeField]
     GameObject LevelEndWinUI;
-
     [SerializeField]
     GameObject LevelEndLoseUI;
-
     [SerializeField]
     GameObject HUD;
-
     [SerializeField]
     Text playerHealth;
     [SerializeField]
     Text timer;
     [SerializeField]
     Text grumbleCounter;
+    [SerializeField]
+    GameObject pauseMenu;
 
+    //UI Values
     private float playerHealthValue = 0;
     private int timerValue = 0;
     private float grumbleCounterValue = 0;
 
+    /*Creates a static instance, of which there can only be one, this allows access to this scripts' 
+    public variables and functions inside of other scripts.*/
     public static GameManager instance;
 
     void Singleton()
@@ -53,21 +55,26 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        /*Checks to see if loadHud is true, to avoid trying to load UI that doesn't exist when on the main menu*/
         if (loadHud)
         {
+            HUD.SetActive(true);
             LoadHUD();
         }
-        
+
     }
     void Update()
     {
-        
-
         if (loadHud)
         {
             LoadHUD();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }
     }
 
     void LoadHUD()
@@ -88,11 +95,9 @@ public class GameManager : MonoBehaviour
 
     void UpdateHUDValues()
     {
-        //TO THOMAS KIRKLAND********
-        /*Set the relevant values (Grumble counter and Timer) here to what you need them to be and they should update on the HUD
+        /*Set the relevant values (Player health and Timer) here to what you need them to be and they should update on the HUD
          automatically as long as the values themselves are being changed here.*/
         timerValue += 1;
-
 
         playerHealthValue = PlayerController.health;
     }
@@ -110,9 +115,32 @@ public class GameManager : MonoBehaviour
         {
             LevelEndLoseUI.SetActive(true);
         }
+
+        Time.timeScale = 0;
         
     }
 
+    public void Unpause()
+    {
+        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
+    }
+
+    public void Restart(bool restart)
+    {
+        if (restart)
+        {
+            LevelEndLoseUI.SetActive(false);
+            LevelEndWinUI.SetActive(false);
+            Time.timeScale = 1;
+            PlayerController.health = 5;
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            Application.Quit();
+        }
+    }
     public void MainMenuControl(bool play)
     {
         if (play)
